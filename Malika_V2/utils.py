@@ -229,3 +229,20 @@ def failed_attempt(ip):
 
     cur.close()
     conn.close()
+def reset_attempts(ip):
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        DELETE FROM login_attempts
+        WHERE ip=%s
+        """,
+        (ip,)
+    )
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
