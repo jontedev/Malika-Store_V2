@@ -2,7 +2,10 @@ import os
 import uuid
 
 from config import Config
+
 from werkzeug.utils import secure_filename
+from datetime import datetime, timedelta
+from database import get_db
 
 
 def allowed_file(filename):
@@ -57,9 +60,6 @@ def cart_total(cart):
         item["price"] * item["quantity"]
         for item in cart
     )
-    from datetime import datetime, timedelta
-from database import get_db
-
 
 def check_login_attempts(ip):
 
