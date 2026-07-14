@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>
+        {% block title %}
+            {{ APP_NAME }}
+        {% endblock %}
+    </title>
+
+    <meta name="description"
+          content="{% block description %}Modern online shopping with {{ APP_NAME }}.{% endblock %}">
+
+    <meta name="theme-color"
+          content="#e84545">
+
+    <link rel="icon"
+          href="{{ url_for('favicon') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/responsive.css') }}">
+
+    {% block styles %}{% endblock %}
+
+</head>
+
+<body>
+
+<div id="loader">
+
+    <div class="spinner-border text-danger"
+         role="status">
+
+        <span class="visually-hidden">
+            Loading...
+        </span>
+
+    </div>
+
+</div>
+
+{% include "navbar.html" %}
+
+{% include "flash.html" %}
+
+<main class="py-5">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+{% include "footer.html" %}
+
+<button
+        id="backToTop"
+        class="btn btn-danger shadow">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div id="liveToast"
+         class="toast"
+         role="alert"
+         aria-live="assertive"
+         aria-atomic="true">
+
+        <div class="toast-header">
+
+            <strong class="me-auto">
+                {{ APP_NAME }}
+            </strong>
+
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="toast">
+            </button>
+
+        </div>
+
+        <div class="toast-body"
+             id="toastMessage">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+
+</html>

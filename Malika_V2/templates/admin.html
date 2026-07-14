@@ -1,0 +1,556 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard | {{ APP_NAME }}
+{% endblock %}
+
+{% block content %}
+
+<section class="page-content">
+
+    <div class="container">
+
+
+        <!-- Dashboard Header -->
+
+        <div class="admin-toolbar fade-in">
+
+            <div>
+
+                <h2 class="fw-bold mb-0">
+
+                    <i class="bi bi-shop me-2"></i>
+
+                    Malika Dashboard
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Manage products and customer orders
+
+                </p>
+
+            </div>
+
+
+            <a
+
+                href="{{ url_for('admin_logout') }}"
+
+                class="btn btn-danger">
+
+                <i class="bi bi-box-arrow-right me-2"></i>
+
+                Logout
+
+            </a>
+
+
+        </div>
+
+
+
+        <!-- Add Product -->
+
+        <div class="admin-card mb-5 fade-in">
+
+
+            <div class="admin-header">
+
+                <h4 class="mb-0">
+
+                    <i class="bi bi-plus-circle me-2"></i>
+
+                    Add Product
+
+                </h4>
+
+            </div>
+
+
+            <div class="p-4">
+
+
+                <form
+
+                    method="POST"
+
+                    action="{{ url_for('add_product') }}"
+
+                    enctype="multipart/form-data"
+
+                    data-validate>
+
+
+
+                    <div class="mb-3">
+
+                        <input
+
+                            type="text"
+
+                            name="name"
+
+                            class="form-control"
+
+                            placeholder="Product Name"
+
+                            data-trim
+
+                            required>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <input
+
+                            type="number"
+
+                            name="price"
+
+                            class="form-control"
+
+                            placeholder="Price (KSh)"
+
+                            min="0"
+
+                            required>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <textarea
+
+                            name="description"
+
+                            class="form-control"
+
+                            rows="3"
+
+                            placeholder="Description"
+
+                            data-trim></textarea>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <input
+
+                            type="text"
+
+                            name="category"
+
+                            class="form-control"
+
+                            placeholder="Category"
+
+                            data-trim>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Product Image
+
+                        </label>
+
+
+                        <input
+
+                            type="file"
+
+                            name="image"
+
+                            class="form-control"
+
+                            accept="image/*"
+
+                            data-image-preview="#imagePreview">
+
+
+                    </div>
+
+
+
+                    <div class="text-center mb-3">
+
+                        <img
+
+                            id="imagePreview"
+
+                            src=""
+
+                            class="product-preview d-none"
+
+                            alt="Image preview">
+
+                    </div>
+
+
+
+                    <div class="d-grid">
+
+                        <button
+
+                            type="submit"
+
+                            class="btn btn-danger">
+
+                            <i class="bi bi-plus-lg me-2"></i>
+
+                            Add Product
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- Orders -->
+
+        {% if orders %}
+
+        <div class="admin-section fade-in">
+
+
+            <h4 class="fw-bold mb-3">
+
+                <i class="bi bi-box-seam me-2"></i>
+
+                Recent Orders
+
+            </h4>
+
+
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    {% for order in orders %}
+
+                    <tr>
+
+                        <td>{{ order[0] }}</td>
+
+                        <td>{{ order[1] }}</td>
+
+                        <td>{{ order[2] }}</td>
+
+                        <td>{{ order[3] }}</td>
+
+                        <td>KSh {{ order[4] | int }}</td>
+
+
+                        <td>
+
+                            <span class="badge
+
+                            {% if order[5] == 'pending' %}
+
+                            bg-warning text-dark
+
+                            {% elif order[5] == 'paid' %}
+
+                            bg-success
+
+                            {% else %}
+
+                            bg-danger
+
+                            {% endif %}">
+
+                                {{ order[5] }}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>{{ order[6] }}</td>
+
+
+                        <td>
+
+                            <form method="POST"
+
+                            action="{{ url_for('update_order_status', order_id=order[0]) }}">
+
+
+                            {% if order[5] == 'pending' %}
+
+                            <button
+
+                                name="status"
+
+                                value="paid"
+
+                                class="btn btn-success btn-sm mb-1">
+
+                                <i class="bi bi-check-circle me-1"></i>
+
+                                Paid
+
+                            </button>
+
+
+                            {% elif order[5] == 'paid' %}
+
+
+                            <button
+
+                                name="status"
+
+                                value="pending"
+
+                                class="btn btn-warning btn-sm mb-1">
+
+                                <i class="bi bi-clock me-1"></i>
+
+                                Pending
+
+                            </button>
+
+
+                            {% endif %}
+
+
+                            {% if order[5] != 'cancelled' %}
+
+
+                            <button
+
+                                name="status"
+
+                                value="cancelled"
+
+                                class="btn btn-danger btn-sm">
+
+                                <i class="bi bi-x-circle me-1"></i>
+
+                                Cancel
+
+                            </button>
+
+
+                            {% endif %}
+
+
+                            </form>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+        {% endif %}
+
+
+
+
+        <!-- Products -->
+
+        <div class="admin-section mt-5 fade-in">
+
+
+            <h4 class="fw-bold mb-3">
+
+                <i class="bi bi-grid me-2"></i>
+
+                All Products
+
+            </h4>
+
+
+
+            <div class="table-responsive">
+
+
+                <table class="table table-hover align-middle">
+
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Action</th>
+
+                        </tr>
+
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    {% for product in products %}
+
+                    <tr>
+
+
+                        <td>
+
+                        {% if product[4] %}
+
+                            <img
+
+                            src="{{ url_for('static', filename='images/products/' + product[4]) }}"
+
+                            class="product-thumb"
+
+                            alt="{{ product[1] }}">
+
+
+                        {% else %}
+
+                            <span class="text-muted">
+
+                                No image
+
+                            </span>
+
+                        {% endif %}
+
+
+                        </td>
+
+
+                        <td>{{ product[1] }}</td>
+
+                        <td>KSh {{ product[2] | int }}</td>
+
+                        <td>{{ product[5] }}</td>
+
+                        <td>{{ product[3] }}</td>
+
+
+                        <td>
+
+
+                            <a
+
+                            href="{{ url_for('edit_product', id=product[0]) }}"
+
+                            class="btn btn-warning btn-sm">
+
+
+                            <i class="bi bi-pencil me-1"></i>
+
+                            Edit
+
+
+                            </a>
+
+
+
+                            <a
+
+                            href="{{ url_for('delete_product', id=product[0]) }}"
+
+                            class="btn btn-danger btn-sm"
+
+                            onclick="return confirm('Delete this product?')">
+
+
+                            <i class="bi bi-trash me-1"></i>
+
+                            Delete
+
+
+                            </a>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}
+Checkout | {{ APP_NAME }}
+{% endblock %}
+
+{% block content %}
+
+<section class="page-content">
+
+    <div class="container">
+
+
+        <div class="about-hero text-center fade-in">
+
+            <h1 class="fw-bold">
+
+                <i class="bi bi-credit-card-fill me-2"></i>
+
+                Checkout
+
+            </h1>
+
+            <p class="lead text-muted mb-0">
+
+                Complete your order details
+
+            </p>
+
+        </div>
+
+
+
+        <div class="row py-5">
+
+
+            <!-- Delivery Details -->
+
+            <div class="col-md-7 mb-4 fade-in">
+
+
+                <div class="admin-card">
+
+
+                    <div class="admin-header">
+
+                        <h5 class="mb-0">
+
+                            <i class="bi bi-truck me-2"></i>
+
+                            Delivery Details
+
+                        </h5>
+
+                    </div>
+
+
+
+                    <div class="p-4">
+
+
+                        <form method="POST" data-validate>
+
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+
+                                    Full Name
+
+                                </label>
+
+
+                                <input
+
+                                    type="text"
+
+                                    name="name"
+
+                                    class="form-control"
+
+                                    placeholder="John Doe"
+
+                                    autocomplete="name"
+
+                                    data-trim
+
+                                    required>
+
+                            </div>
+
+
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+
+                                    Phone Number
+
+                                </label>
+
+
+                                <input
+
+                                    type="tel"
+
+                                    name="phone"
+
+                                    class="form-control"
+
+                                    placeholder="+254 700 000 000"
+
+                                    autocomplete="tel"
+
+                                    data-trim
+
+                                    required>
+
+                            </div>
+
+
+
+                            <div class="mb-4">
+
+                                <label class="form-label">
+
+                                    Delivery Address
+
+                                </label>
+
+
+                                <textarea
+
+                                    name="address"
+
+                                    class="form-control"
+
+                                    rows="4"
+
+                                    placeholder="Street, Area, City"
+
+                                    data-trim
+
+                                    required></textarea>
+
+                            </div>
+
+
+
+                            <div class="d-grid">
+
+
+                                <button
+
+                                    type="submit"
+
+                                    class="btn btn-danger">
+
+
+                                    <i class="bi bi-check-circle me-2"></i>
+
+                                    Place Order
+
+
+                                </button>
+
+
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <!-- Order Summary -->
+
+
+            <div class="col-md-5 mb-4 fade-in">
+
+
+                <div class="admin-card">
+
+
+                    <div class="admin-header">
+
+
+                        <h5 class="mb-0">
+
+
+                            <i class="bi bi-cart-fill me-2"></i>
+
+                            Order Summary
+
+
+                        </h5>
+
+
+                    </div>
+
+
+
+                    <div class="p-4">
+
+
+                    {% for item in cart_items %}
+
+
+                        <div class="d-flex justify-content-between mb-3">
+
+
+                            <span>
+
+                                {{ item.product.name }}
+
+                                <small class="text-muted">
+
+                                    x{{ item.quantity }}
+
+                                </small>
+
+                            </span>
+
+
+                            <span class="fw-bold">
+
+                                {{ item.subtotal | currency }}
+
+                            </span>
+
+
+                        </div>
+
+
+                    {% endfor %}
+
+
+
+                        <hr>
+
+
+
+                        <div class="d-flex justify-content-between">
+
+
+                            <span class="fw-bold fs-5">
+
+                                Total
+
+                            </span>
+
+
+                            <span class="fw-bold fs-5 text-danger">
+
+                                {{ total | currency }}
+
+                            </span>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+{% endblock %}

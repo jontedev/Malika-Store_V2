@@ -1,0 +1,252 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+
+    <div class="container">
+
+        <a class="navbar-brand fw-bold d-flex align-items-center"
+           href="{{ url_for('home') }}">
+
+            <i class="bi bi-bag-heart-fill text-danger me-2 fs-3"></i>
+
+            {{ APP_NAME }}
+
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link {% if active_page('home') %}active{% endif %}"
+                       href="{{ url_for('home') }}">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link {% if active_page('products') %}active{% endif %}"
+                       href="{{ url_for('products') }}">
+
+                        Shop
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       role="button"
+                       data-bs-toggle="dropdown">
+
+                        Categories
+
+                    </a>
+
+                    <ul class="dropdown-menu shadow border-0">
+
+                        {% for category in categories %}
+
+                        <li>
+
+                            <a class="dropdown-item"
+                               href="{{ url_for('category', category_id=category.id) }}">
+
+                                {{ category.name }}
+
+                            </a>
+
+                        </li>
+
+                        {% else %}
+
+                        <li>
+
+                            <span class="dropdown-item text-muted">
+
+                                No Categories
+
+                            </span>
+
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link {% if active_page('about') %}active{% endif %}"
+                       href="{{ url_for('about') }}">
+
+                        About
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link {% if active_page('contact') %}active{% endif %}"
+                       href="{{ url_for('contact') }}">
+
+                        Contact
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <form class="d-flex me-3"
+                  action="{{ url_for('search') }}"
+                  method="get">
+
+                <div class="input-group">
+
+                    <input type="search"
+                           class="form-control"
+                           name="q"
+                           placeholder="Search products..."
+                           value="{{ request.args.get('q','') }}">
+
+                    <button class="btn btn-danger"
+                            type="submit">
+
+                        <i class="bi bi-search"></i>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <ul class="navbar-nav align-items-lg-center">
+
+                <li class="nav-item me-2">
+
+                    <a class="nav-link position-relative"
+                       href="{{ url_for('cart.view_cart') }}">
+
+                        <i class="bi bi-cart3 fs-5"></i>
+
+                        {% if cart_count %}
+
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                            {{ cart_count }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </a>
+
+                </li>
+
+                {% if current_user.is_authenticated %}
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link dropdown-toggle d-flex align-items-center"
+                       href="#"
+                       data-bs-toggle="dropdown">
+
+                        <i class="bi bi-person-circle me-2"></i>
+
+                        {{ current_user.name }}
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+
+                        {% if session.get('admin') %}
+
+                        <li>
+
+                            <a class="dropdown-item"
+                               href="{{ url_for('admin.dashboard') }}">
+
+                                <i class="bi bi-speedometer2 me-2"></i>
+
+                                Dashboard
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <hr class="dropdown-divider">
+
+                        </li>
+
+                        {% endif %}
+
+                        <li>
+
+                            <a class="dropdown-item"
+                               href="{{ url_for('auth.logout') }}">
+
+                                <i class="bi bi-box-arrow-right me-2"></i>
+
+                                Logout
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                {% else %}
+
+                <li class="nav-item me-2">
+
+                    <a class="btn btn-outline-danger"
+                       href="{{ url_for('auth.login') }}">
+
+                        Login
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="btn btn-danger"
+                       href="{{ url_for('auth.register') }}">
+
+                        Register
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>

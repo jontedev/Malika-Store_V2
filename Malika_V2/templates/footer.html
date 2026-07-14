@@ -1,0 +1,237 @@
+<footer class="footer bg-dark text-light pt-5 pb-3 mt-5">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+
+                <h4 class="fw-bold mb-3">
+
+                    <i class="bi bi-bag-heart-fill text-danger me-2"></i>
+
+                    {{ APP_NAME }}
+
+                </h4>
+
+                <p class="text-light-emphasis">
+
+                    Discover quality products at affordable prices.
+                    Shop confidently with secure checkout, fast delivery,
+                    and excellent customer service.
+
+                </p>
+
+                <div class="d-flex gap-3 mt-4">
+
+                    <a href="#"
+                       class="text-light fs-4 social-link">
+
+                        <i class="bi bi-facebook"></i>
+
+                    </a>
+
+                    <a href="#"
+                       class="text-light fs-4 social-link">
+
+                        <i class="bi bi-instagram"></i>
+
+                    </a>
+
+                    <a href="#"
+                       class="text-light fs-4 social-link">
+
+                        <i class="bi bi-twitter-x"></i>
+
+                    </a>
+
+                    <a href="#"
+                       class="text-light fs-4 social-link">
+
+                        <i class="bi bi-whatsapp"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+
+                <h5 class="fw-semibold mb-3">
+
+                    Shop
+
+                </h5>
+
+                <ul class="list-unstyled">
+
+                    <li class="mb-2">
+
+                        <a href="{{ url_for('home') }}"
+                           class="footer-link">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+                    <li class="mb-2">
+
+                        <a href="{{ url_for('products') }}"
+                           class="footer-link">
+
+                            Products
+
+                        </a>
+
+                    </li>
+
+                    <li class="mb-2">
+
+                        <a href="{{ url_for('cart.view_cart') }}"
+                           class="footer-link">
+
+                            Cart
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a href="{{ url_for('contact') }}"
+                           class="footer-link">
+
+                            Contact
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <h5 class="fw-semibold mb-3">
+
+                    Categories
+
+                </h5>
+
+                <ul class="list-unstyled">
+
+                    {% for category in categories[:6] %}
+
+                    <li class="mb-2">
+
+                        <a href="{{ url_for('category', category_id=category.id) }}"
+                           class="footer-link">
+
+                            {{ category.name }}
+
+                        </a>
+
+                    </li>
+
+                    {% else %}
+
+                    <li class="text-secondary">
+
+                        No categories available
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <h5 class="fw-semibold mb-3">
+
+                    Contact
+
+                </h5>
+
+                <p class="mb-2">
+
+                    <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+
+                    Nairobi, Kenya
+
+                </p>
+
+                <p class="mb-2">
+
+                    <i class="bi bi-envelope-fill text-danger me-2"></i>
+
+                    support@malika.store
+
+                </p>
+
+                <p>
+
+                    <i class="bi bi-telephone-fill text-danger me-2"></i>
+
+                    +254 700 000 000
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr class="border-secondary my-4">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6 text-center text-md-start">
+
+                <small>
+
+                    © {{ current_year() }}
+
+                    {{ APP_NAME }}.
+
+                    All Rights Reserved.
+
+                </small>
+
+            </div>
+
+            <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+
+                <a href="#"
+                   class="footer-link me-3">
+
+                    Privacy Policy
+
+                </a>
+
+                <a href="#"
+                   class="footer-link me-3">
+
+                    Terms
+
+                </a>
+
+                <a href="{{ url_for('about') }}"
+                   class="footer-link">
+
+                    About
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>

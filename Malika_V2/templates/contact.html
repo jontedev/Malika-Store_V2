@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block title %}
+Contact | {{ APP_NAME }}
+{% endblock %}
+
+{% block content %}
+
+<section class="page-content">
+
+    <div class="container">
+
+        <!-- Hero Banner -->
+        <div class="about-hero text-center fade-in">
+
+            <h1 class="fw-bold">
+
+                Contact Us
+
+            </h1>
+
+            <p class="lead text-muted mb-0">
+
+                We'd love to hear from you
+
+            </p>
+
+        </div>
+
+
+        <div class="row py-5">
+
+
+            <!-- Contact Information -->
+
+            <div class="col-md-5 mb-5 fade-in">
+
+                <h4 class="fw-bold text-danger mb-4">
+
+                    Get In Touch
+
+                </h4>
+
+
+                <div class="contact-item d-flex align-items-center mb-4">
+
+                    <i class="bi bi-geo-alt-fill text-danger fs-3 me-3"></i>
+
+                    <div>
+
+                        <h6 class="fw-bold mb-0">
+
+                            Location
+
+                        </h6>
+
+                        <p class="text-muted mb-0">
+
+                            Mombasa, Kenya
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="contact-item d-flex align-items-center mb-4">
+
+                    <i class="bi bi-telephone-fill text-danger fs-3 me-3"></i>
+
+                    <div>
+
+                        <h6 class="fw-bold mb-0">
+
+                            Phone
+
+                        </h6>
+
+                        <a
+
+                            href="tel:+254700000000"
+
+                            class="text-muted no-line">
+
+                            +254 700 000 000
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="contact-item d-flex align-items-center mb-4">
+
+                    <i class="bi bi-envelope-fill text-danger fs-3 me-3"></i>
+
+                    <div>
+
+                        <h6 class="fw-bold mb-0">
+
+                            Email
+
+                        </h6>
+
+                        <a
+
+                            href="mailto:info@malika.com"
+
+                            class="text-muted no-line">
+
+                            info@malika.com
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="contact-item d-flex align-items-center mb-4">
+
+                    <i class="bi bi-clock-fill text-danger fs-3 me-3"></i>
+
+                    <div>
+
+                        <h6 class="fw-bold mb-0">
+
+                            Working Hours
+
+                        </h6>
+
+                        <p class="text-muted mb-0">
+
+                            Mon - Sat: 8:00AM - 6:30PM
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Contact Form -->
+
+            <div class="col-md-7 mb-5 fade-in">
+
+
+                <h4 class="fw-bold text-danger mb-4">
+
+                    Send a Message
+
+                </h4>
+
+
+                <form method="POST" data-validate>
+
+
+                    <div class="mb-3">
+
+                        <input
+
+                            type="text"
+
+                            name="name"
+
+                            class="form-control"
+
+                            placeholder="Your Name"
+
+                            autocomplete="name"
+
+                            data-trim
+
+                            required>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <input
+
+                            type="email"
+
+                            name="email"
+
+                            class="form-control"
+
+                            placeholder="Your Email"
+
+                            autocomplete="email"
+
+                            data-trim
+
+                            required>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <input
+
+                            type="text"
+
+                            name="subject"
+
+                            class="form-control"
+
+                            placeholder="Subject"
+
+                            data-trim>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+                        <textarea
+
+                            name="message"
+
+                            class="form-control"
+
+                            rows="5"
+
+                            placeholder="Your Message"
+
+                            data-trim
+
+                            required></textarea>
+
+                    </div>
+
+
+
+                    <div class="d-grid">
+
+                        <button
+
+                            type="submit"
+
+                            class="btn btn-danger">
+
+                            <i class="bi bi-send-fill me-2"></i>
+
+                            Send Message
+
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

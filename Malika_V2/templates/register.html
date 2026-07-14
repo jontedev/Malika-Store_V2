@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register | {{ APP_NAME }}
+{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <div class="container">
+
+        <div class="auth-card fade-in">
+
+            <div class="text-center mb-4">
+
+                <i class="bi bi-person-plus-fill text-danger display-4"></i>
+
+                <h2 class="mt-3">
+
+                    Create Account
+
+                </h2>
+
+                <p class="text-muted">
+
+                    Join us and start shopping today.
+
+                </p>
+
+            </div>
+
+            {% if error %}
+
+                <div class="alert alert-danger">
+
+                    <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                    {{ error }}
+
+                </div>
+
+            {% endif %}
+
+            <form method="POST" data-validate>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Full Name
+
+                    </label>
+
+                    <input
+
+                        type="text"
+
+                        name="name"
+
+                        class="form-control"
+
+                        placeholder="John Doe"
+
+                        autocomplete="name"
+
+                        data-trim
+
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Email Address
+
+                    </label>
+
+                    <input
+
+                        type="email"
+
+                        name="email"
+
+                        class="form-control"
+
+                        placeholder="john@example.com"
+
+                        autocomplete="email"
+
+                        data-trim
+
+                        required>
+
+                </div>
+
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+
+                        Password
+
+                    </label>
+
+                    <div class="input-group">
+
+                        <input
+
+                            id="register-password"
+
+                            type="password"
+
+                            name="password"
+
+                            class="form-control"
+
+                            placeholder="Minimum 6 characters"
+
+                            autocomplete="new-password"
+
+                            minlength="6"
+
+                            required>
+
+                        <button
+
+                            type="button"
+
+                            class="btn btn-outline-secondary"
+
+                            data-toggle-password="#register-password">
+
+                            <i class="bi bi-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="d-grid mb-3">
+
+                    <button
+
+                        type="submit"
+
+                        class="btn btn-danger">
+
+                        <i class="bi bi-person-check-fill me-2"></i>
+
+                        Create Account
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div class="auth-divider">
+
+                OR
+
+            </div>
+
+
+            <p class="text-center mb-0">
+
+                Already have an account?
+
+                <a
+
+                    href="{{ url_for('login') }}"
+
+                    class="fw-semibold text-decoration-none">
+
+                    Login
+
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
