@@ -43,14 +43,15 @@ from admin import admin
 
 from models import (
     get_products,
+    get_featured_products,
     get_product,
     get_categories,
     get_products_by_category,
     search_products,
-    count_products,
-    count_orders,
-    count_customers,
-    get_user
+    total_products,
+    total_orders,
+    total_users,
+    get_user_by_id
 )
 
 from utils import format_currency
@@ -275,7 +276,7 @@ def create_app():
 
         try:
 
-            return get_user(
+            return get_user_by_id(
                 int(user_id)
             )
 
@@ -426,11 +427,11 @@ def create_app():
 
             "dashboard": {
 
-                "products": count_products(),
+                "products": total_products(),
 
-                "orders": count_orders(),
+                "orders": total_orders(),
 
-                "customers": count_customers()
+                "customers": total_users()
 
             }
 
@@ -558,7 +559,7 @@ def create_app():
 
             "index.html",
 
-            products=get_products(featured=True)
+            products=get_featured_products()
 
         )
 
