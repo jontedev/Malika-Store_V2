@@ -34,7 +34,7 @@ from flask_limiter.util import get_remote_address
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from config import Config
-from database import init_db, get_connection
+from database import init_db, get_db
 from seed import seed_database
 
 from auth import auth
@@ -107,8 +107,10 @@ def maintenance_mode():
 
 def database_ok():
     try:
-        conn = get_connection()
-        conn.execute("SELECT 1")
+        conn = get_db()
+        cur = conn.cursor()
+        cur.execute("SELECT 1")
+        cur.close()
         conn.close()
         return True
     except Exception:
