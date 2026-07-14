@@ -173,6 +173,7 @@ def seed_products():
 
     cur.close()
     conn.close()
+    
 def seed_database():
 
     seed_categories()
