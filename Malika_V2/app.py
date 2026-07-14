@@ -266,8 +266,8 @@ def create_app():
 
     app.register_blueprint(admin)
 
-    @login_manager.user_loader
-    def load_user(user_id):
+   @login_manager.user_loader
+   def load_user(user_id):
 
         try:
 
@@ -278,8 +278,8 @@ def create_app():
         except Exception:
 
             return None
-        @app.before_request
-def before_request():
+    @app.before_request
+    def before_request():
 
         session.permanent = True
 
@@ -547,7 +547,7 @@ def before_request():
             page_title="Search Results"
 
         )
-        @app.route("/")
+    @app.route("/")
     def home():
 
         return render_template(
