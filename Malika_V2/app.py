@@ -263,9 +263,11 @@ def create_app():
     app.register_blueprint(auth)
 
     app.register_blueprint(cart)
+    
+    app.register_blueprint(cart)
 
     app.register_blueprint(admin)
-    
+
     @login_manager.user_loader
     def load_user(user_id):
 
