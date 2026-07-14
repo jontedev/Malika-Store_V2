@@ -246,3 +246,27 @@ def reset_attempts(ip):
 
     cur.close()
     conn.close()
+    
+def login_attempts_count(ip):
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT attempts
+        FROM login_attempts
+        WHERE ip=%s
+        """,
+        (ip,)
+    )
+
+    record = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if not record:
+        return 0
+
+    return record["attempts"]
