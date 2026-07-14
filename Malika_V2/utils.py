@@ -169,3 +169,63 @@ def clear_login_attempts(ip):
 
     cur.close()
     conn.close()
+    
+def failed_attempt(ip):
+
+    conn = get_db()
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT attempts
+        FROM login_attempts
+        WHERE ip=%s
+        """,
+        (ip,)
+    )
+
+    record = cur.fetchone()
+
+    if record:
+
+        attempts = record["attempts"] + 1
+
+        lockout_until = None
+
+        if attempts >= 5:
+            lockout_until = datetime.now() + timedelta(minutes=15)
+
+        cur.execute(
+            """
+            UPDATE login_attempts
+            SET attempts=%s,
+                lockout_until=%s
+            WHERE ip=%s
+            """,
+            (
+                attempts,
+                lockout_until,
+                ip
+            )
+        )
+
+    else:
+
+        cur.execute(
+            """
+            INSERT INTO login_attempts(
+                ip,
+                attempts
+            )
+            VALUES(%s,%s)
+            """,
+            (
+                ip,
+                1
+            )
+        )
+
+    conn.commit()
+
+    cur.close()
+    conn.close()
