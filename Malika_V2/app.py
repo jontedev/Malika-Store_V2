@@ -279,7 +279,7 @@ def create_app():
 
             return None
         @app.before_request
-    def before_request():
+def before_request():
 
         session.permanent = True
 
