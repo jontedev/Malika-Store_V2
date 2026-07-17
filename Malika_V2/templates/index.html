@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}{{ APP_NAME }} — Shop Online in Mombasa{% endblock %}
+
+{% block description %}Shop quality products online with fast, reliable delivery from {{ APP_NAME }}.{% endblock %}
+
+{% block content %}
+
+<section class="hero bg-danger text-white py-5 mb-5">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold mb-3">Welcome to {{ APP_NAME }}</h1>
+        <p class="lead mb-4">Quality products, fast delivery, prices you'll love.</p>
+        <a href="{{ url_for('products') }}" class="btn btn-light btn-lg fw-semibold">
+            <i class="bi bi-bag-fill me-1"></i> Shop Now
+        </a>
+    </div>
+</section>
+
+<div class="container">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Featured Products</h2>
+        <a href="{{ url_for('products') }}" class="text-decoration-none text-danger fw-semibold">
+            View All <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+
+    {% if products %}
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm product-card">
+                <a href="{{ url_for('product', product_id=product.id) }}" class="text-decoration-none text-dark">
+                    <img
+                        src="{{ url_for('static', filename='uploads/' ~ product.image) if product.image else url_for('static', filename='img/placeholder.png') }}"
+                        class="card-img-top"
+                        alt="{{ product.name }}"
+                        style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h6 class="card-title mb-1">{{ product.name }}</h6>
+                        <p class="fw-bold text-danger mb-1">{{ product.price | currency }}</p>
+                        <span class="badge {{ 'bg-success' if product.stock > 5 else 'bg-warning text-dark' if product.stock > 0 else 'bg-secondary' }}">
+                            {{ product.stock | stock }}
+                        </span>
+                    </div>
+                </a>
+                <div class="card-footer bg-white border-0 pb-3">
+                    <a href="{{ url_for('cart.add_to_cart', product_id=product.id) }}" class="btn btn-outline-danger btn-sm w-100">
+                        <i class="bi bi-cart-plus"></i> Add to Cart
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center text-muted py-5">
+        <i class="bi bi-box-seam display-4 d-block mb-3"></i>
+        <p>No featured products yet. Check back soon!</p>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
